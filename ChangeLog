@@ -1,0 +1,12 @@
+Version 0.2.1	-		April 20 2024:
+	Added the switches section to the menu
+	Implemented the unimplemented function for the -P (--prompt) argument
+
+Version 0.2		-		March 18 2024:
+	Introduced short and long options command line arguments.
+	Added more options to the menu.
+	Added debugging switches in code to make it easier to backtrace errors.
+	Attached GPL 2.0 license
+
+Version 0.1		-		July 20 2023:
+	First introduced with only a menu layout.
