@@ -1,6 +1,7 @@
-/*  exportFile.c -- Export the credit registery as a readable file in multiple amount of formats */
+/*  exportFile.c -- Export the credit registery as a readable file in multiple
+ * amount of formats */
 
-/*  Copyright (C) 2024  Mitnew
+/*  Copyright (c) 2024 Robert Johnson. All Rights Reserved.
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -19,39 +20,27 @@
 #include "gnubank.h"
 #endif
 
-void
-exportFile( FILE *readPtr )
-{
+void exportFile(FILE *readPtr) {
   FILE *writePtr;
 
-  clientData client = { 0, "", "", 0.0 };
+  clientData client = {0, "", "", 0.0};
 
-  if ( ( writePtr = fopen( "accounts.txt", "w" ) ) == NULL )
-  {
+  if ((writePtr = fopen("accounts.txt", "w")) == NULL) {
     printf("accounts.txt cannot be created\n");
-  }
-  else
-  {
-    rewind( readPtr );
-    fprintf( writePtr, "%-6s%-16s%-11s%10s\n",
-	  "Acct", "Last Name", "First Name", "Balance" );
+  } else {
+    rewind(readPtr);
+    fprintf(writePtr, "%-6s%-16s%-11s%10s\n", "Acct", "Last Name", "First Name",
+            "Balance");
 
+    while (!feof(readPtr)) {
+      fread(&client, sizeof(clientData), 1, readPtr);
 
-    while (!feof( readPtr ) )
-    {
-      fread( &client, sizeof( clientData ), 1, readPtr );
-
-      if ( client.acctNum != 0 )
-      {
-	      fprintf( writePtr, "%-6d%-16s%-11s%10.2f\n",
-	                  client.acctNum, client.lastName,
-	                 client.firstName, client.balance );
+      if (client.acctNum != 0) {
+        fprintf(writePtr, "%-6d%-16s%-11s%10.2f\n", client.acctNum,
+                client.lastName, client.firstName, client.balance);
       }
-
     }
 
-    fclose( writePtr );
+    fclose(writePtr);
   }
-
 }
-

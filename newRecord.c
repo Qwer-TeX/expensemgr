@@ -1,6 +1,6 @@
 /*  newRecord.c -- Allocate a new record in the credit registery */
 
-/*  Copyright (C) 2024  Mitnew
+/*  Copyright (c) 2024 Robert Johnson. All Rights Reserved.
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -19,41 +19,30 @@
 #include "gnubank.h"
 #endif
 
-void
-newRecord( FILE *fPtr )
-{
+void newRecord(FILE *fPtr) {
 
-  clientData client = { 0, "", "", 0.0 };
+  clientData client = {0, "", "", 0.0};
 
   int accountNum;
 
-  printf( "Enter new account number ( 1 - 100 ): " );
-  scanf( "%d", &accountNum );
+  printf("Enter new account number ( 1 - 100 ): ");
+  scanf("%d", &accountNum);
 
-  fseek( fPtr, ( accountNum - 1 ) * sizeof( clientData ),
-      SEEK_SET );
+  fseek(fPtr, (accountNum - 1) * sizeof(clientData), SEEK_SET);
 
-  fread( &client, sizeof( clientData ), 1, fPtr );
+  fread(&client, sizeof(clientData), 1, fPtr);
 
-  if ( client.acctNum != 0 ) {
-    printf( "Account #%d already contains information.\n",
-	client.acctNum );
-  }
-  else {
+  if (client.acctNum != 0) {
+    printf("Account #%d already contains information.\n", client.acctNum);
+  } else {
 
-    printf( "Enter lastname, firstname, balance\n/ " );
-    scanf( "%s%s%lf", &client.lastName, &client.firstName,
-	&client.balance );
-
+    printf("Enter lastname, firstname, balance\n/ ");
+    scanf("%s%s%lf", &client.lastName, &client.firstName, &client.balance);
 
     client.acctNum = accountNum;
 
-    fseek( fPtr, ( client.acctNum - 1 ) *
-	sizeof ( clientData ), SEEK_SET );
+    fseek(fPtr, (client.acctNum - 1) * sizeof(clientData), SEEK_SET);
 
-    fwrite( &client,
-	sizeof ( clientData ), 1, fPtr );
+    fwrite(&client, sizeof(clientData), 1, fPtr);
   }
-
 }
-

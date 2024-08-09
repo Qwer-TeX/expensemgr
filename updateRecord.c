@@ -1,6 +1,6 @@
 /*  updateRecord.c -- Update clients' credits in the credit registery */
 
-/*  Copyright (C) 2024  Mitnew
+/*  Copyright (c) 2024 Robert Johnson. All Rights Reserved.
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -19,44 +19,34 @@
 #include "gnubank.h"
 #endif
 
-void
-updateRecord( FILE *fPtr )
-{
+void updateRecord(FILE *fPtr) {
   int account;
   double transaction;
 
-  clientData client = { 0, "", "", 0.0 };
+  clientData client = {0, "", "", 0.0};
 
-  printf( "Enter account to update ( 1 - 100 ): ");
-  scanf( "%d", &account );
+  printf("Enter account to update ( 1 - 100 ): ");
+  scanf("%d", &account);
 
-  fseek( fPtr, ( account - 1 ) * sizeof( clientData ),
-    SEEK_SET );
+  fseek(fPtr, (account - 1) * sizeof(clientData), SEEK_SET);
 
-  fread( &client, sizeof( clientData ), 1, fPtr );
+  fread(&client, sizeof(clientData), 1, fPtr);
 
-  if ( client.acctNum == 0 ) {
-    printf( "Account #%d has no information.\n", account );
-  }
-  else {
-    printf( "%-6d%-16s%-11s%10.2f\n\n",
-	client.acctNum, client.lastName,
-	client.firstName, client.balance );
+  if (client.acctNum == 0) {
+    printf("Account #%d has no information.\n", account);
+  } else {
+    printf("%-6d%-16s%-11s%10.2f\n\n", client.acctNum, client.lastName,
+           client.firstName, client.balance);
 
-    printf( "Enter charge ( + ) or payment ( - ): " );
-    scanf( "%lf", &transaction );
+    printf("Enter charge ( + ) or payment ( - ): ");
+    scanf("%lf", &transaction);
     client.balance += transaction;
 
-    printf( "%-6d%-16s%-11s%10.2f\n",
-	client.acctNum, client.lastName,
-	client.firstName, client.balance );
+    printf("%-6d%-16s%-11s%10.2f\n", client.acctNum, client.lastName,
+           client.firstName, client.balance);
 
-    fseek( fPtr, ( account - 1 ) * sizeof( clientData ),
-	SEEK_SET );
+    fseek(fPtr, (account - 1) * sizeof(clientData), SEEK_SET);
 
-
-    fwrite( &client, sizeof( clientData ), 1, fPtr );
+    fwrite(&client, sizeof(clientData), 1, fPtr);
   }
-
 }
-

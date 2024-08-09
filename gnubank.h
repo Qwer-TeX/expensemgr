@@ -20,30 +20,33 @@
 
 /* #define DEBUG */
 
+#include <getopt.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <getopt.h>
 #include <string.h>
 
-#define FREE(p)   do { free (p); (p) = NULL; } while(0)
+#define FREE(p)                                                                \
+  do {                                                                         \
+    free(p);                                                                   \
+    (p) = NULL;                                                                \
+  } while (0)
 
-void print_usage( FILE *strm, int exit_code );
+void print_usage(FILE *strm, int exit_code);
 void print_license();
 void mkdatafile();
 int enterChoice();
-void readRecord( FILE *fPtr );
-void exportFile( FILE *readPtr );
-void importFile( FILE *readPtr );
-void updateRecord( FILE *fPtr );
-void newRecord( FILE *fPtr );
-void deleteRecord( FILE *fPtr );
-void blankRecords( FILE *fPtr );
+void readRecord(FILE *fPtr);
+void exportFile(FILE *readPtr);
+void importFile(FILE *readPtr);
+void updateRecord(FILE *fPtr);
+void newRecord(FILE *fPtr);
+void deleteRecord(FILE *fPtr);
+void blankRecords(FILE *fPtr);
 
-typedef struct
-clientData {
+typedef struct clientData {
   int acctNum;
-  char lastName[ 15 ];
-  char firstName[ 10 ];
+  char lastName[15];
+  char firstName[10];
   double balance;
 } clientData;
 

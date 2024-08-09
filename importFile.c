@@ -1,6 +1,7 @@
-/*  importFile.c -- import data to credit registery from files with a variety of formats */
+/*  importFile.c -- import data to credit registery from files with a variety of
+ * formats */
 
-/*  Copyright (C) 2024  Mitnew
+/*  Copyright (c) 2024 Robert Johnson. All Rights Reserved.
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -19,8 +20,4 @@
 #include "gnubank.h"
 #endif
 
-void
-importFile( FILE *readPtr )
-{
-  printf("Function not implemented\n");
-}
+void importFile(FILE *readPtr) { printf("Function not implemented\n"); }

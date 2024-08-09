@@ -1,6 +1,6 @@
 /*  blankRecords.c -- Allocate 100 blank records to the credit registery */
 
-/*  Copyright (C) 2024  Mitnew
+/*  Copyright (c) 2024 Robert Johnson. All Rights Reserved.
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -20,15 +20,12 @@
 #include "gnubank.h"
 #endif
 
-void
-blankRecords( FILE *fPtr )
-{
-  clientData blankClient = { 0, "", "", 0.0 };
+void blankRecords(FILE *fPtr) {
+  clientData blankClient = {0, "", "", 0.0};
 
-  for ( int i = 1; i <= 100; i++ )
-  {
-    fwrite( &blankClient, sizeof( clientData ), 1, fPtr );
+  for (int i = 1; i <= 100; i++) {
+    fwrite(&blankClient, sizeof(clientData), 1, fPtr);
   }
 
-  fclose( fPtr );
+  fclose(fPtr);
 }

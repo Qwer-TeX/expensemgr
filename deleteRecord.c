@@ -1,6 +1,6 @@
 /*  blankRecords.c -- Delete a record from the credit registery */
 
-/*  Copyright (C) 2024  Mitnew
+/*  Copyright (c) 2024 Robert Johnson. All Rights Reserved.
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -19,34 +19,26 @@
 #include "gnubank.h"
 #endif
 
-void
-deleteRecord( FILE *fPtr )
-{
+void deleteRecord(FILE *fPtr) {
 
   clientData client;
-  clientData blankClient = { 0, "", "", 0 };
+  clientData blankClient = {0, "", "", 0};
 
   int accountNum;
 
-  printf( "Enter account number to delete ( 1 - 100 ): " );
-  scanf( "%d", &accountNum );
+  printf("Enter account number to delete ( 1 - 100 ): ");
+  scanf("%d", &accountNum);
 
-  fseek( fPtr, ( accountNum - 1 ) * sizeof ( clientData ),
-      SEEK_SET );
+  fseek(fPtr, (accountNum - 1) * sizeof(clientData), SEEK_SET);
 
-  fread( &client, sizeof ( clientData ), 1, fPtr );
+  fread(&client, sizeof(clientData), 1, fPtr);
 
-  if ( client.acctNum == 0 ) {
-    printf( "Account %d does not exist.\n", accountNum );
+  if (client.acctNum == 0) {
+    printf("Account %d does not exist.\n", accountNum);
+  } else {
+
+    fseek(fPtr, (accountNum - 1) * sizeof(clientData), SEEK_SET);
+
+    fwrite(&blankClient, sizeof(clientData), 1, fPtr);
   }
-  else {
-
-    fseek( fPtr, ( accountNum - 1 ) * sizeof ( clientData ),
-	SEEK_SET );
-
-    fwrite( &blankClient,
-	sizeof( clientData ), 1, fPtr );
-  }
-
 }
-
